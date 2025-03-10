@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     type: "website",
   },
+  icons: {
+    icon: "/logo/favicon.ico",
+    shortcut: "/logo/favicon-16x16.png",
+    apple: "/logo/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -44,9 +49,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-900`}
       >
         <ThemeProvider
           attribute="class"

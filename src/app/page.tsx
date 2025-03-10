@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import {
   ChevronDown,
   Twitter,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { BentoGrid, type BentoItem } from "@/components/Bento";
+import { motion } from "framer-motion";
 
 const itemsSample: BentoItem[] = [
   {
@@ -57,28 +57,9 @@ const itemsSample: BentoItem[] = [
 ];
 
 export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
     <div>
       <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden text-zinc-50">
-        {/* Magical forest mist effect */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-30"
-          style={{
-            background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(150, 150, 150, 0.2), transparent 80%)`,
-          }}
-        />
-
         <div className="container relative flex max-w-3xl flex-col items-center justify-center gap-8 px-4 text-center">
           {/* Profile Image with enchanted border */}
           <div className="relative">
@@ -101,7 +82,7 @@ export default function Home() {
             <p className="text-xl text-zinc-400">System Engineer, Programmer</p>
           </div>
 
-          <p className="max-w-[600px] text-zinc-200/80 md:text-lg">
+          <p className="italic max-w-[600px] text-zinc-200/80 md:text-lg">
             PC turns off the power.
           </p>
 
@@ -168,29 +149,23 @@ export default function Home() {
               </Button>
             </Link>
           </div>
-          {/*
-          <div className="flex gap-4 flex-row">
-            <Button
-              variant="outline"
-              className="border-zinc-800/50 bg-zinc-900/30 text-zinc-400 backdrop-blur-sm transition-all hover:border-zinc-500 hover:bg-zinc-800/40 hover:text-zinc-200"
-              disabled
-            >
-              Project
-            </Button>
-            <Button
-              className="relative overflow-hidden bg-gradient-to-r from-zinc-700 to-zinc-600 text-zinc-50 transition-all hover:from-zinc-600 hover:to-zinc-500"
-              disabled
-            >
-              <span className="relative z-10">About</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-zinc-600 to-zinc-500 opacity-0 transition-opacity hover:opacity-100" />
-            </Button>
-          </div>
-          */}
         </div>
-        <ChevronDown className="absolute bottom-32 md:bottom-6 animate-bounce h-8 w-8 text-zinc-400" />
+
+        <motion.div
+          initial={{ opacity: 0.0, x: 0, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.3,
+            duration: 0.8,
+            ease: "easeInOut",
+          }}
+          className="flex justify-center items-center"
+        >
+          <ChevronDown className="absolute bottom-32 md:bottom-6 animate-bounce h-8 w-8 text-zinc-400" />
+        </motion.div>
       </div>
       <div className="container max-w-3xl mx-auto mt-8">
-        <h2 className="text-2xl font-bold text-zinc-200 text-center">
+        <h2 className="sm:text-3xl text-2xl font-bold text-zinc-200 text-center">
           Projects
         </h2>
         <p className="text-zinc-300"></p>
